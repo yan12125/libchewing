@@ -14,15 +14,17 @@ noinst_PROGRAMS = init_database dump_database
 
 init_database_SOURCES = \
 	init_database.c \
-	$(top_srcdir)/src/common/chewing-utf8-util.c \
-	$(top_srcdir)/src/common/key2pho.c \
+	$(NULL)
+
+init_database_LDADD = \
+	$(top_builddir)/src/common/libcommon.la \
 	$(NULL)
 
 dump_database_SOURCES = \
 	dump_database.c \
-	$(top_srcdir)/src/common/chewing-utf8-util.c \
-	$(top_srcdir)/src/common/key2pho.c \
-	$(top_srcdir)/src/porting_layer/src/plat_mmap_posix.c \
-	$(top_srcdir)/src/porting_layer/src/plat_mmap_windows.c \
-	$(top_srcdir)/src/porting_layer/src/rpl_malloc.c \
+	$(NULL)
+
+dump_database_LDADD = \
+	$(top_builddir)/src/common/libcommon.la \
+	$(top_builddir)/src/porting_layer/src/libporting_layer.la \
 	$(NULL)

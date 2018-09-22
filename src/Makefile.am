@@ -1,4 +1,4 @@
-SUBDIRS = common porting_layer
+SUBDIRS = common porting_layer tools
 
 AM_CPPFLAGS = \
 	-I$(top_srcdir)/include \
