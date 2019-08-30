@@ -548,7 +548,9 @@ void test_new2_userpath_alternative()
     printf("#\n# %s\n#\n", __func__);
     fprintf(fd, "#\n# %s\n#\n", __func__);
 
-    ctx = chewing_new2(NULL, TEST_HASH_DIR "/test.sqlite3", logger, fd);
+    char buf[1024];
+    snprintf(buf, 1024, "%s/test.sqlite3", test_hash_dir());
+    ctx = chewing_new2(NULL, buf , logger, fd);
     ok(ctx != NULL, "chewing_new2 returns `%#p' shall not be `%#p'", ctx, NULL);
 
     chewing_delete(ctx);
@@ -561,7 +563,7 @@ void test_new2_userpath_error()
     printf("#\n# %s\n#\n", __func__);
     fprintf(fd, "#\n# %s\n#\n", __func__);
 
-    ctx = chewing_new2(NULL, TEST_HASH_DIR, logger, fd);
+    ctx = chewing_new2(NULL, test_hash_dir(), logger, fd);
     ok(ctx == NULL, "chewing_new2 returns `%#p' shall be `%#p'", ctx, NULL);
 }
 
@@ -583,7 +585,7 @@ int main(int argc, char *argv[])
     int ret;
 
     putenv("CHEWING_PATH=" CHEWING_DATA_PREFIX);
-    putenv("CHEWING_USER_PATH=" TEST_HASH_DIR);
+    putenv_test_hash_dir();
 
     ret = asprintf(&logname, "%s.log", argv[0]);
     if (ret == -1)
