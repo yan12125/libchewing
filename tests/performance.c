@@ -11,6 +11,7 @@
 #include <stdlib.h>
 
 #include "chewing.h"
+#include "testhelper.h"
 
 int main()
 {
@@ -20,7 +21,7 @@ int main()
     /* Initialize libchewing */
     putenv("CHEWING_PATH=" CHEWING_DATA_PREFIX);
     /* for the sake of testing, we should not change existing hash data */
-    putenv("CHEWING_USER_PATH=" TEST_HASH_DIR);
+    putenv_test_hash_dir();
 
     ctx = chewing_new();
 

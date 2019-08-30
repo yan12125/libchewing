@@ -13,6 +13,7 @@
 #endif
 
 #include "chewing.h"
+#include "testhelper.h"
 
 /* Only used by calculating char position */
 #include "chewing-utf8-util.h"
@@ -38,6 +39,12 @@
 /* Avoid incorrect KEY_ENTER definition */
 #ifdef KEY_ENTER
 #    undef KEY_ENTER
+#endif
+#ifdef KEY_TAB
+#    undef KEY_TAB
+#endif
+#ifdef KEY_ESC
+#    undef KEY_ESC
 #endif
 
 /* Key list */
@@ -256,7 +263,7 @@ void show_commit_string(int x, int y, ChewingContext *ctx)
     }
 }
 
-static void logger(void *data, int level, const char *fmt, ...)
+static void my_logger(void *data, int level, const char *fmt, ...)
 {
     va_list ap;
     FILE *fd = (FILE *) data;
@@ -311,10 +318,10 @@ int main(int argc, char *argv[])
     /* Initialize libchewing */
     putenv("CHEWING_PATH=" CHEWING_DATA_PREFIX);
     /* for the sake of testing, we should not change existing hash data */
-    putenv("CHEWING_USER_PATH=" TEST_HASH_DIR);
+    putenv_test_hash_dir();
 
     /* Request handle to ChewingContext */
-    ctx = chewing_new2(NULL, NULL, logger, log);
+    ctx = chewing_new2(NULL, NULL, my_logger, log);
 
     /* Set keyboard type */
     chewing_set_KBType(ctx, chewing_KBStr2Num("KB_DEFAULT"));

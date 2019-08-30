@@ -148,3 +148,5 @@ void internal_ok_candidate_len(const char *file, int line, ChewingContext *ctx, 
 void internal_ok_keystroke_rtn(const char *file, int line, ChewingContext *ctx, int rtn);
 void internal_start_testcase(const char *func, ChewingContext *ctx, FILE * file);
 void logger(void *data, int level, const char *fmt, ...);
+char *test_hash_dir();
+void putenv_test_hash_dir();

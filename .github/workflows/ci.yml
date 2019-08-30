@@ -52,7 +52,7 @@ jobs:
 
       - name: Test
         run: |
-          ctest --test-dir build --output-on-failure
+          ctest -j$(nproc) --test-dir build --output-on-failure
 
   aarch64-smoke:
     runs-on: ubuntu-latest
@@ -113,7 +113,7 @@ jobs:
           RUSTFLAGS: -Cinstrument-coverage -Ccodegen-units=1 -Cinline-threshold=0 -Clink-dead-code -Coverflow-checks=off
         run: |
           source "$HOME/.cargo/env"
-          ctest --test-dir build --output-on-failure
+          ctest -j$(nproc) --test-dir build --output-on-failure
           ./grcov . -s . -b . --keep-only 'src/*' --keep-only 'capi/src/*' --llvm  -t lcov -o coverage.lcov
 
       - name: Upload coverage reports to Codecov

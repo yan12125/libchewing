@@ -425,8 +425,11 @@ char *get_test_userphrase_path()
 
     if (userphrase_path)
         return userphrase_path;
-    else
-        return TEST_HASH_DIR PLAT_SEPARATOR DB_NAME;
+    else {
+        static char buf[1024];
+        snprintf(buf, 1024, "%s" PLAT_SEPARATOR DB_NAME, test_hash_dir());
+        return buf;
+    }
 }
 
 void clean_userphrase()
@@ -435,4 +438,22 @@ void clean_userphrase()
 
     if (remove(userphrase_path) != 0 && errno != ENOENT)
         fprintf(stderr, "remove fails at %s:%d\n", __FILE__, __LINE__);
+}
+
+char *test_hash_dir()
+{
+    static char template[] = TEST_HASH_DIR "/hash_dir-XXXXXX";
+    static const char original_template[] = TEST_HASH_DIR "/hash_dir-XXXXXX";
+    if (strcmp(template, original_template) == 0) {
+        mkdtemp(template);
+    }
+    return template;
+}
+
+void putenv_test_hash_dir()
+{
+    static char buf[1024];
+    snprintf(buf, 1024, "CHEWING_USER_PATH=%s", test_hash_dir());
+    fprintf(stderr, "%s\n", buf);
+    putenv(buf);
 }

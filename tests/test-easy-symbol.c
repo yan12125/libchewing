@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
     int ret;
 
     putenv("CHEWING_PATH=" CHEWING_DATA_PREFIX);
-    putenv("CHEWING_USER_PATH=" TEST_HASH_DIR);
+    putenv_test_hash_dir();
 
     ret = asprintf(&logname, "%s.log", argv[0]);
     if (ret == -1)
