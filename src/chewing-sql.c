@@ -346,7 +346,7 @@ static void MigrateOldFormat(ChewingData *pgdata, const char *path)
     len = strlen(path) + 1 + strlen(HASH_NAME) + 1;
     uhash = calloc(sizeof(*uhash), len);
     if (!uhash) {
-        LOG_ERROR("calloc returns %#p", uhash);
+        LOG_ERROR("calloc returns %p", uhash);
         exit(-1);
     }
     snprintf(uhash, len, "%s" PLAT_SEPARATOR "%s", path, HASH_NAME);
@@ -354,7 +354,7 @@ static void MigrateOldFormat(ChewingData *pgdata, const char *path)
     len = strlen(path) + 1 + strlen(HASH_OLD_NAME) + 1;
     old_uhash = calloc(sizeof(*old_uhash), len);
     if (!old_uhash) {
-        LOG_ERROR("calloc returns %#p", old_uhash);
+        LOG_ERROR("calloc returns %p", old_uhash);
         exit(-1);
     }
     snprintf(old_uhash, len, "%s" PLAT_SEPARATOR "%s", path, HASH_OLD_NAME);
@@ -389,7 +389,7 @@ static void MigrateOldFormat(ChewingData *pgdata, const char *path)
     }
 
     if (memcmp(buf, HASH_SIGS, 4) != 0) {
-        LOG_WARN("signature is not %d", HASH_SIGS);
+        LOG_WARN("signature is not %s", HASH_SIGS);
         goto end_remove_hash;
     }
 

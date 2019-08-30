@@ -239,6 +239,8 @@ typedef struct PreeditBuf {
     char char_[MAX_UTF8_SIZE + 1];
 } PreeditBuf;
 
+typedef void (*LoggerFunc)(void *data, int level, const char *fmt, ...) __attribute__((format(printf, 3, 4)));
+
 typedef struct ChewingData {
     AvailInfo availInfo;
     ChoiceInfo choiceInfo;
@@ -280,7 +282,7 @@ typedef struct ChewingData {
 #endif
 
     ChewingStaticData static_data;
-    void (*logger) (void *data, int level, const char *fmt, ...);
+    LoggerFunc logger;
     void *loggerData;
 } ChewingData;
 

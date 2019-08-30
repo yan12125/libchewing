@@ -188,7 +188,7 @@ CHEWING_API ChewingContext *chewing_new2(const char *syspath,
         goto error;
     ctx->data = pgdata;
 
-    LOG_API("syspath = %d, userpath = %d", syspath, userpath);
+    LOG_API("syspath = %s, userpath = %s", syspath, userpath);
 
     chewing_Reset(ctx);
 
@@ -1633,7 +1633,7 @@ CHEWING_API int chewing_handle_Default(ChewingContext *ctx, int key)
     }
     /* Quick commit */
     else {
-        DEBUG_OUT("\t\tQuick commit buf[0]=%c\n", pgdata->preeditBuf[0].char_);
+        DEBUG_OUT("\t\tQuick commit buf[0]=%s\n", pgdata->preeditBuf[0].char_);
         WriteChiSymbolToCommitBuf(pgdata, pgo, 1);
         pgdata->chiSymbolBufLen = 0;
         pgdata->chiSymbolCursor = 0;
@@ -1986,12 +1986,12 @@ CHEWING_API int chewing_userphrase_get(ChewingContext *ctx,
                            SQL_STMT_USERPHRASE[STMT_USERPHRASE_SELECT].column[COLUMN_USERPHRASE_LENGTH]);
 
     if (phrase_len < strlen(phrase) + 1) {
-        LOG_ERROR("phrase_len %d is smaller than %d", phrase_len, strlen(phrase) + 1);
+        LOG_ERROR("phrase_len %d is smaller than %zu", phrase_len, strlen(phrase) + 1);
         return -1;
     }
 
     if (bopomofo_len < GetBopomofoBufLen(length)) {
-        LOG_ERROR("bopomofo_len %d is smaller than %d", bopomofo_len, GetBopomofoBufLen(length));
+        LOG_ERROR("bopomofo_len %d is smaller than %zu", bopomofo_len, GetBopomofoBufLen(length));
         return -1;
     }
 
