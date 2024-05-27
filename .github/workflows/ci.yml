@@ -5,6 +5,7 @@ on:
     branches:
       - "master"
       - "release/*"
+      - "issue293"
   pull_request:
     branches:
       - "master"
